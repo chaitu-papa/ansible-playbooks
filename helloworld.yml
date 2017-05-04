@@ -1,5 +1,5 @@
 --- 
  - hosts: helloworld 
-   user: root 
+   user: ec2-user 
    roles:
       - common  
