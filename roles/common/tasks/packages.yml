@@ -1,0 +1,12 @@
+# 
+--- 
+ - name: install additional packages 
+   sudo: yes
+   yum: pkg={{ item }} 
+        state=present 
+        update_cache=yes
+   with_items: 
+     - ssh 
+     - git
+     - ntp
+   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'

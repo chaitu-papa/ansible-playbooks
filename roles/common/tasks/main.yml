@@ -1,0 +1,4 @@
+---
+# tasks file for common
+  - include: packages.yml
+  - include: motd.yml
