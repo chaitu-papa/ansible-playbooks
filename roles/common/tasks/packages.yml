@@ -9,4 +9,6 @@
      - ssh 
      - git
      - ntp
+     - tar
+     - java-1.8.0-openjdk
    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
