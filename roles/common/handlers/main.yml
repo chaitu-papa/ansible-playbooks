@@ -1,2 +1,15 @@
 ---
 # handlers file for common
+  - name: restart sshd
+    become: yes
+    service: name=sshd state=restarted
+  - name: Start sshd 
+    become: yes
+    service: name=sshd state=started enabled=yes 
+  - name: restart ntpd
+    become: yes
+    service: name=ntpd state=restarted
+  - name: Start ntpd 
+    become: yes
+    service: name=ntpd state=started enabled=yes 
+

@@ -1,6 +1,6 @@
 --- 
  - name: distribute motd file 
-   sudo: yes
+   become: yes
    template: src=motd.j2 
              dest=/etc/motd 
              owner=root 
