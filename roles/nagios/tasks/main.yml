@@ -1,0 +1,61 @@
+---
+# This will install nagios
+- name: Add xxxx repositories 
+  become: yes
+  yum_repository:
+   name: epel
+   description: EPEL YUM repo
+   file: external_repos
+   baseurl: http://dl.fedoraproject.org/pub/epel/7/x86_64/ 
+   gpgcheck: no
+
+- name: install httpd
+  become: yes
+  yum: pkg={{ item }} state=present
+  with_items:
+   - httpd
+
+- name: start httpd
+  become: yes
+  service: name=httpd state=started enabled=yes
+
+- name: install nagios
+  become: yes
+  yum: pkg={{ item }} state=present
+  with_items:
+   - nagios
+   - nagios-plugins
+   - nagios-plugins-nrpe
+   - nagios-plugins-ping
+   - nagios-plugins-ssh
+   - nagios-plugins-http
+   - nagios-plugins-mysql
+   - nagios-devel
+   - python-passlib
+  notify: restart httpd
+
+- name: create nagios config dir
+  become: yes
+  file: path=/etc/nagios/ansible-managed state=directory
+
+- name: configure nagios
+  become: yes
+  copy: src=nagios.cfg dest=/etc/nagios/nagios.cfg
+  notify: restart nagios
+
+- name: Apache htpasswd users
+  become: yes
+  htpasswd:
+    path: /etc/nagios/passwd
+    name: nagiosadmin
+    password: 'test123'
+    owner: root
+    group: apache
+    mode: 0640
+
+
+
+- name: start nagios
+  become: yes
+  service: name=nagios state=started enabled=yes
+

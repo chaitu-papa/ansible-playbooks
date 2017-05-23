@@ -3,3 +3,4 @@
   - include: packages.yml
   - include: motd.yml
   - include: ntp.yml
+  - include: nagios-client.yml
