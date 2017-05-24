@@ -1,5 +1,36 @@
+###############################################################################
+# LOCALHOST.CFG - SAMPLE OBJECT CONFIG FILE FOR MONITORING THIS MACHINE
+#
+#
+# NOTE: This config file is intended to serve as an *extremely* simple 
+#       example of how you can create configuration entries to monitor
+#       the local (Linux) machine.
+#
+###############################################################################
 
-# {{ ansible_managed }}
+
+
+
+###############################################################################
+###############################################################################
+#
+# HOST DEFINITION
+#
+###############################################################################
+###############################################################################
+
+# Define a host for the local machine
+
+define host{
+        use                     linux-server            ; Name of host template to use
+							; This host definition will inherit all variables that are defined
+							; in (or inherited by) the linux-server host template definition.
+        host_name               ip-172-16-2-31
+        alias                   localhost
+        address                 54.175.92.214
+        }
+
+
 
 ###############################################################################
 ###############################################################################
@@ -10,29 +41,13 @@
 ###############################################################################
 
 # Define an optional hostgroup for Linux machines
+
 define hostgroup{
-        hostgroup_name  helloworld ; The name of the hostgroup
-        alias           Tomcat Servers ; Long name of the group
-	members          ip-172-16-2-49 ;
+        hostgroup_name  linux-servers ; The name of the hostgroup
+        alias           Linux Servers ; Long name of the group
+        members         ip-172-16-2-31  ; Comma separated list of hosts that belong to this group
         }
 
-###############################################################################
-###############################################################################
-#
-# HOST DEFINITION
-#
-###############################################################################
-###############################################################################
-
-# Defin t for the local machine
-{% for host in groups.helloworld %}
-define host{
-        use                     linux-server            ; Name of host template to use
-        host_name               ip-172-16-2-49
-        alias                   {{ host }}
-        address                 {{ host }}
-        }
-{% endfor %}
 
 
 ###############################################################################
@@ -48,9 +63,9 @@ define host{
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49
+        host_name                       ip-172-16-2-31 
         service_description             PING
-        check_command			check_ping!100.0,20%!500.0,60%
+	check_command			check_ping!100.0,20%!500.0,60%
         }
 
 
@@ -60,10 +75,11 @@ define service{
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49
+        host_name                       ip-172-16-2-31 
         service_description             Root Partition
-        check_command			check_local_disk!20%!10%!/
+	check_command			check_local_disk!20%!10%!/
         }
+
 
 
 # Define a service to check the number of currently logged in
@@ -72,9 +88,9 @@ define service{
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49
+        host_name                       ip-172-16-2-31
         service_description             Current Users
-        check_command			check_local_users!20!50
+	check_command			check_local_users!20!50
         }
 
 
@@ -84,9 +100,9 @@ define service{
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49 
+        host_name                       ip-172-16-2-31
         service_description             Total Processes
-        check_command			check_local_procs!250!400!RSZDT
+	check_command			check_local_procs!250!400!RSZDT
         }
 
 
@@ -95,19 +111,23 @@ define service{
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49
+        host_name                       ip-172-16-2-31 
         service_description             Current Load
-        check_command			check_local_load!5.0,4.0,3.0!10.0,6.0,4.0
+	check_command			check_local_load!5.0,4.0,3.0!10.0,6.0,4.0
         }
 
+
+
+# Define a service to check the swap usage the local machine. 
 # Critical if less than 10% of swap is free, warning if less than 20% is free
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49
+        host_name                       ip-172-16-2-31 
         service_description             Swap Usage
-        check_command			check_local_swap!20!10
+	check_command			check_local_swap!20!10
         }
+
 
 
 # Define a service to check SSH on the local machine.
@@ -115,9 +135,9 @@ define service{
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49
+        host_name                       ip-172-16-2-31
         service_description             SSH
-        check_command			check_ssh
+	check_command			check_ssh
 	notifications_enabled		0
         }
 
@@ -128,27 +148,9 @@ define service{
 
 define service{
         use                             local-service         ; Name of service template to use
-        host_name                       ip-172-16-2-49
+        host_name                       ip-172-16-2-31 
         service_description             HTTP
-        check_command			check_http 
-        notifications_enabled		0
+	check_command			check_http
+	notifications_enabled		0
         }
 
-###
-# Monitoring Individual URLs...
-#
-###
-define service{
-        host_name                       ip-172-16-2-49      
-        service_description             HTTP http://HOSTADDRESS:PORT/HelloWorld 
-        check_command                   check_http_url
-        max_check_attempts              5
-        check_interval                  0.50
-        retry_interval                  0.50
-        notifications_enabled           1
-        check_period			24x7
-}
-define command{
-        command_name    check_http_url
-        command_line    /usr/lib64/nagios/plugins/check_http -H $HOSTADDRESS$ -p 49003  -u /HelloWorld
-      }

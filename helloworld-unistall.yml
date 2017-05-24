@@ -1,0 +1,10 @@
+--- 
+ - hosts: helloworld 
+   user: ec2-user 
+   roles:
+      - nagios-client-unistall 
+
+ - hosts: nagios-server-monitoring 
+   user: ec2-user 
+   roles:
+      - nagios-client-config-unistall 

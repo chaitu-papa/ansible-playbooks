@@ -1,17 +1,9 @@
 ---
 # This role contains common nagios-client that will run on all nodes.
 # This will install nagios
-- name: Add xxxx repositories
-  become: yes
-  yum_repository:
-   name: epel
-   description: EPEL YUM repo
-   file: external_repos
-   baseurl: http://dl.fedoraproject.org/pub/epel/7/x86_64/
-   gpgcheck: no
 
 - name: install some useful nagios plugins
-  yum: name={{ item }} state=present
+  yum: name={{ item }} state=absent
   become: yes
   with_items:
    - nagios-nrpe
@@ -26,11 +18,3 @@
    - nagios-plugins-all
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
-- name: Allow control nagios host to connect
-  become: yes
-  lineinfile: >
-    regexp="^allowed_hosts"
-    line="allowed_hosts=127.0.0.1, 54.175.92.214"
-    dest="/etc/nagios/nrpe.cfg"
-  notify:
-         - Start nrpe

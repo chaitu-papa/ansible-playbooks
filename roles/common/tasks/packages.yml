@@ -10,6 +10,7 @@
      - git
      - tar
      - java-1.8.0-openjdk
+     - java-1.7.0-openjdk
      - libselinux-python
      - libsemanage-python
    when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
@@ -20,11 +21,11 @@
 #        name='*'
 #        state=latest 
 #        update_cache=yes
- - name: remove additional packages 
-   become: yes
-   yum: pkg={{ item }} 
-        state=removed
-        update_cache=yes
-   with_items: 
-     - java-1.7.0-openjdk
-   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+# - name: remove additional packages 
+#   become: yes
+#   yum: pkg={{ item }} 
+#        state=removed
+#        update_cache=yes
+#   with_items: 
+#     - java-1.7.0-openjdk
+#   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'

@@ -14,6 +14,7 @@
   yum: pkg={{ item }} state=present
   with_items:
    - httpd
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
 - name: start httpd
   become: yes
@@ -30,8 +31,14 @@
    - nagios-plugins-ssh
    - nagios-plugins-http
    - nagios-plugins-mysql
+   - nagios-plugins-swap
+   - nagios-plugins-users
+   - nagios-plugins-procs
+   - nagios-plugins-load
+   - nagios-plugins-disk
    - nagios-devel
    - python-passlib
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
   notify: restart httpd
 
 - name: create nagios config dir
@@ -53,7 +60,13 @@
     group: apache
     mode: 0640
 
-
+- name: create the nagios object files
+  become: yes
+  template: src={{ item + ".j2" }}
+            dest=/etc/nagios/ansible-managed/{{ item }}
+  with_items:
+    - helloworld.cfg
+  notify: restart nagios
 
 - name: start nagios
   become: yes

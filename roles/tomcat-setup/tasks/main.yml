@@ -1,2 +1,2 @@
 ---
-  - include: setup.xml 
+  - include: setup.yml 

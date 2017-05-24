@@ -38,7 +38,7 @@
  - name: Install Tomcat init script
    become: yes
    copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
- 
+
  - name: Start Tomcat
    become: yes
    service: name=tomcat state=started enabled=yes

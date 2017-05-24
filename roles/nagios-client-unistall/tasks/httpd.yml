@@ -1,0 +1,8 @@
+---
+- name: install httpd
+  become: yes
+  yum: pkg={{ item }} state=absent
+  with_items:
+   - httpd
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+

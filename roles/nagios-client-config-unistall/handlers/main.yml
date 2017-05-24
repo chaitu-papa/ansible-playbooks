@@ -5,5 +5,5 @@
   service: name=httpd state=restarted
 
 - name: restart nagios
-  become: yes
+  become: yes 
   service: name=nagios state=restarted

@@ -1,0 +1,12 @@
+---
+
+- name: Clean helloworld.cfg
+  become: yes
+  file:
+    state: absent
+    path: "/etc/nagios/ansible-managed/{{ item }}"
+  with_items:
+    - helloworld.cfg
+
+  notify: restart nagios
+
