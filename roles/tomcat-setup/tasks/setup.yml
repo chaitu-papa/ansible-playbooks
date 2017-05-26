@@ -61,13 +61,13 @@
 # - pause:
 #    minutes: 1 
 
-# - name: Stop Tomcat
-#   become: yes
-#   service: name=tomcat state=stopped
+ - name: Stop Tomcat
+   become: yes
+   service: name=tomcat state=stopped
 
-# - name: Start Tomcat
-#   become: yes
-#   service: name=tomcat state=started enabled=yes
+ - name: Start Tomcat
+   become: yes
+   service: name=tomcat state=started enabled=yes
 
  - name: wait for tomcat to start
    become: yes
