@@ -16,7 +16,7 @@
  
  - name: Extract archive
    become: yes
-   command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-7.0.61.tar.gz -C /opt/ creates={{ destination_tomcat }}
+   command: chdir=/usr/share tar -xvf /opt/apache-tomcat-7.0.61.tar.gz -C /opt/ creates={{ destination_tomcat }}
  
  - name: Symlink install directory
    become: yes
