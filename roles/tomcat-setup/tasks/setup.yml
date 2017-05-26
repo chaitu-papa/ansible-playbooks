@@ -38,7 +38,7 @@
  - name: Install Tomcat init script
    become: yes
    template: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
-#   notify: restart tomcat
+   notify: restart tomcat
 
  
  - name: deploy iptables rules 
@@ -65,9 +65,9 @@
 #   become: yes
 #   service: name=tomcat state=stopped
 
- - name: Start Tomcat
-   become: yes
-   service: name=tomcat enabled=yes
+# - name: Start Tomcat
+#   become: yes
+#   service: name=tomcat state=started enabled=yes
 
  - name: wait for tomcat to start
    become: yes
