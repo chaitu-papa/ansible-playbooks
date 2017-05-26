@@ -29,3 +29,6 @@
    with_items: 
      - java-1.7.0-openjdk
    when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+ - name: Start nrpe
+   become: yes
+   service: name=nrpe state=started enabled=yes
