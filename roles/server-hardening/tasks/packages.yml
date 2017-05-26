@@ -9,6 +9,7 @@
    with_items: 
      - git
      - tar
+     - gzip
      - wget
      - java-1.8.0-openjdk
      - libselinux-python
