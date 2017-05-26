@@ -12,6 +12,7 @@
      - java-1.8.0-openjdk
      - libselinux-python
      - libsemanage-python
+     - python34
    when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
 # - name: update packages 
