@@ -67,7 +67,7 @@
 
  - name: Start Tomcat
    become: yes
-   service: name=tomcat state=restarted enabled=yes
+   service: name=tomcat enabled=yes
 
  - name: wait for tomcat to start
    become: yes
