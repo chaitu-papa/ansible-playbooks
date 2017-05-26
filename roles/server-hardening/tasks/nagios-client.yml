@@ -33,4 +33,7 @@
     line="allowed_hosts=127.0.0.1, 54.175.92.214"
     dest="/etc/nagios/nrpe.cfg"
   notify:
-         - Start nrpe
+         - restart nrpe
+- name: Start nrpe
+  become: yes
+  service: name=nrpe state=started enabled=yes

@@ -2,4 +2,4 @@
  - hosts: nagios-server 
    user: ec2-user 
    roles:
-    - nagios
+    - nagios-server

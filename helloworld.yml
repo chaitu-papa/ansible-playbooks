@@ -2,10 +2,10 @@
  - hosts: helloworld 
    user: ec2-user 
    roles:
-      - common  
+      - server-hardening  
       - tomcat-setup  
 
  - hosts: nagios-server-monitoring
    user: ec2-user 
    roles:
-     - nagios 
+     - nagios-client-config 

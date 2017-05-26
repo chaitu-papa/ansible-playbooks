@@ -1,9 +1,0 @@
---- 
- - debug:
-    msg: "System {{ inventory_hostname }} has OS {{ ansible_distribution }}"
- - name: ssh-config 
-   become: yes
-   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
-   notify: 
-        - restart sshd
-

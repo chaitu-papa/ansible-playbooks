@@ -10,4 +10,8 @@
      - ntp
    when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
    notify: 
-         - Start ntpd
+         - restart ntpd
+
+ - name: Start ntpd
+   become: yes
+   service: name=ntpd state=started enabled=yes

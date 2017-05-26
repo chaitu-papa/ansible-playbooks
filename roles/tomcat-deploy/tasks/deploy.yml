@@ -18,7 +18,7 @@
    become: yes
    copy: 
      src: /tmp/helloworld.war 
-     dest: /usr/share/tomcat/webapps
+     dest: "{{ tomcat_home }}/webapps"
      owner: tomcat
      group: tomcat 
      mode: 0755
