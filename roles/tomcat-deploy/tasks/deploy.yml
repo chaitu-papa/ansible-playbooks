@@ -1,5 +1,13 @@
 ---
 # deploy file for tomcat
+ - name: Clean helloworld
+   become: yes
+   file:
+    state: absent
+    path: "{{ tomcat_home }}/webapps/{{ item }}"
+   with_items:
+    - helloworld
+    - helloworld.war
 
  - name: Download helloworld 
    become: yes

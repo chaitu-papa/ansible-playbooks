@@ -25,13 +25,13 @@ define hostgroup{
 ###############################################################################
 
 # Defin t for the local machine
-#{% for host in groups.helloworld %}
 define host{
         use                     linux-server            ; Name of host template to use
         host_name               ip-172-16-2-49
-        alias                   {{ host }}
-        address                 {{ host }}
+        alias                   52.73.109.102 
+        address                 52.73.109.102 
         }
+#{% for host in groups.helloworld %}
 #{% endfor %}
 
 
