@@ -5,6 +5,11 @@
       - server-hardening  
       - tomcat-setup  
 
+ - hosts: haproxy-server 
+   user: ec2-user 
+   roles:
+      - haproxy-server
+
  - hosts: nagios-server-monitoring
    user: ec2-user 
    roles:

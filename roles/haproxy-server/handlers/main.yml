@@ -1,0 +1,5 @@
+---
+# handlers file for common
+  - name: restart haproxy
+    become: yes
+    service: name=haproxy state=restarted

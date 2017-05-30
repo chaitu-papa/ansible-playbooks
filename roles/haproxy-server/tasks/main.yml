@@ -1,0 +1,20 @@
+--- 
+ - debug:
+    msg: "System {{ inventory_hostname }} has OS {{ ansible_distribution }}"
+ - name: haproxy install additional packages 
+   become: yes
+   yum: pkg={{ item }} 
+        state=present 
+        update_cache=yes
+   with_items: 
+     - haproxy
+   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+ - name: Configure the haproxy cnf file with hosts
+   become: yes
+   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+   notify: restart haproxy
+
+ - name: Start haproxy
+   become: yes
+   service: name=haproxy state=started enabled=yes

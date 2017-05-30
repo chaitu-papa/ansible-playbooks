@@ -47,6 +47,11 @@
 
 - name: configure nagios
   become: yes
+  copy: src=localhost.cfg dest=/etc/nagios/objects/localhost.cfg
+  notify: restart nagios
+
+- name: configure nagios
+  become: yes
   copy: src=nagios.cfg dest=/etc/nagios/nagios.cfg
   notify: restart nagios
 

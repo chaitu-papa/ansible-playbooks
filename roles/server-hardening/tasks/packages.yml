@@ -11,7 +11,7 @@
      - tar
      - gzip
      - wget
-     - java-1.8.0-openjdk
+     - java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3
      - libselinux-python
      - libsemanage-python
      - firewalld

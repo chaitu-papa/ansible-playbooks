@@ -13,9 +13,13 @@
    become: yes
    get_url: url=http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.61/bin/apache-tomcat-7.0.61.tar.gz dest=/opt/apache-tomcat-7.0.61.tar.gz
  
+ - name: create directory
+   become: yes
+   file: path={{ destination_tomcat }} mode=0755 state=directory
+
  - name: Extract archive
    become: yes
-   command: chdir=/usr/share tar -xvf /opt/apache-tomcat-7.0.61.tar.gz -C /opt/ creates={{ destination_tomcat }}
+   command: chdir=/usr/share tar xvf /opt/apache-tomcat-7.0.61.tar.gz -C {{ destination_tomcat }} --strip 1
  
  - name: Symlink install directory
    become: yes
@@ -67,7 +71,8 @@
 
  - name: Start Tomcat
    become: yes
-   service: name=tomcat state=started enabled=yes
+   service: name=tomcat state=started 
+#enabled=yes
 
  - name: wait for tomcat to start
    become: yes
