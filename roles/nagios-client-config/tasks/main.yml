@@ -1,11 +1,9 @@
 ---
 # This will install nagios
-
 - name: create the nagios object files
   become: yes
-  template: src={{ item + ".j2" }}
-            dest=/etc/nagios/ansible-managed/{{ item }}
+  template: src=helloworld.cfg.j2
+            dest=/etc/nagios/ansible-managed/{{ item + ".cfg" }}
   with_items:
-    - helloworld.cfg
+    - "{{ groups['helloworld'] }}"
   notify: restart nagios
-
