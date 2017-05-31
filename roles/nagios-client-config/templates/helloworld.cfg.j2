@@ -59,7 +59,7 @@ define service{
 define service{
         host_name                       {{ item }}
         service_description             HTTP http://HOSTADDRESS:PORT/HelloWorld
-        check_command                   check_http_url
+        check_command                   check_http_url_{{ item }}
         max_check_attempts              5
         check_interval                  0.50
         retry_interval                  0.50
@@ -67,7 +67,7 @@ define service{
         check_period                    24x7
 }
 define command{
-        command_name    check_http_url
+        command_name    check_http_url_{{ item }}
         command_line    /usr/lib64/nagios/plugins/check_http -H {{ item }} -p {{ http_port }} -u /helloworld
       }
 
