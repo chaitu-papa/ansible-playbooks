@@ -60,28 +60,20 @@ defaults
 #---------------------------------------------------------------------
 # main frontend which proxys to the backends
 #---------------------------------------------------------------------
-frontend  main *:5000
-    acl url_static       path_beg       -i /static /images /javascript /stylesheets
-    acl url_static       path_end       -i .jpg .gif .png .css .js
-
-    use_backend static          if url_static
+frontend  main
+    bind *:81
     default_backend             app
 
-#---------------------------------------------------------------------
-# static backend for serving up images, stylesheets and such
-#---------------------------------------------------------------------
-backend static
-    balance     roundrobin
-    server      static 127.0.0.1:4331 check
-
 #-------------------------------------------------------------------- 
-# round robin balancing between the various backends
+# Tomcat load balancing between the various backends
 #---------------------------------------------------------------------
 backend app
-    balance     roundrobin
-{% for host in groups.helloworld %}
-    server  {{ host }} {{ host }}:{{ http_port }} check
-{% endfor %}
+    option httpclose
+    option redispatch
+    cookie JSESSIONID prefix
+    {% for host in groups.helloworld %}
+    server {{ host }} {{ host }}:{{ http_port }} cookie JSESSIONID_SERVER_1 check inter 5000
+    {% endfor %}
 
 listen  stats   :49009
         mode            http
