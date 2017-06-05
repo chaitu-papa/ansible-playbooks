@@ -1,0 +1,9 @@
+---
+# tasks file for haproxy-server-uninstall
+- name: un install haproxy
+  yum: name={{ item }} state=absent
+  become: yes
+  with_items:
+   - haproxy
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+

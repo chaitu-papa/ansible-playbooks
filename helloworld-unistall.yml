@@ -8,3 +8,9 @@
    user: ec2-user 
    roles:
       - nagios-client-config-unistall 
+
+ - hosts: haproxy-server
+   user: ec2-user
+   roles:
+      - haproxy-server-uninstall
+
