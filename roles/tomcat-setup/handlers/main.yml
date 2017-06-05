@@ -1,12 +1,9 @@
 ---
 # handlers file for tomcat
- - name: stop tomcat
-   become: yes 
-   service: name=tomcat state=stopped
 
  - name: restart tomcat
    become: yes 
-   service: name=tomcat state=restarted
+   shell: /etc/init.d/tomcat restart
 
  - name: restart iptables
    become: yes 

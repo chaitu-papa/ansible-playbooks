@@ -67,12 +67,11 @@
 
  - name: Stop Tomcat
    become: yes
-   service: name=tomcat state=stopped
+   shell: /etc/init.d/tomcat stop 
 
  - name: Start Tomcat
    become: yes
-   service: name=tomcat state=started 
-#enabled=yes
+   shell: /etc/init.d/tomcat start
 
  - name: wait for tomcat to start
    become: yes

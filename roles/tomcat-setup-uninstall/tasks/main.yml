@@ -1,0 +1,16 @@
+---
+# tasks file for tomcat-setup-uninstall
+- name: stop tomcat
+  become: yes
+  shell: /etc/init.d/tomcat stop
+
+- name: Clean tomcat
+  become: yes
+  file:
+    state: absent
+    path: "{{ item }}"
+  with_items:
+    - "{{ destination_tomcat }}"
+    - "{{ tomcat_home }}"
+    - //etc/init.d/tomcat
+

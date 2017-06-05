@@ -2,7 +2,8 @@
  - hosts: helloworld 
    user: ec2-user 
    roles:
-      - nagios-client-unistall 
+      - nagios-client-uninstall 
+      - tomcat-setup-uninstall
 
  - hosts: nagios-server-monitoring 
    user: ec2-user 
