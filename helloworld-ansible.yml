@@ -5,3 +5,4 @@
    roles:
       - server-hardening  
       - tomcat-setup  
+      - tomcat-deploy
