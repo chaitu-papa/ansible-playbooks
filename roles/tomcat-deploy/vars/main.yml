@@ -1,3 +1,5 @@
 ---
 # vars file for tomcat-deploy
 tomcat_home: /usr/share/tomcat
+app_name: HelloWorld
+app_version: 0.1-SNAPSHOT

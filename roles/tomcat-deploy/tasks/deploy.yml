@@ -6,26 +6,26 @@
     state: absent
     path: "{{ tomcat_home }}/webapps/{{ item }}"
    with_items:
-    - helloworld
-    - helloworld.war
+    - "{{ app_name }}"
+    - "{{ app_name }}.war"
 
  - name: Download helloworld 
    become: yes
    become_user: tomcat
    maven_artifact:
     group_id: com.cts
-    artifact_id: HelloWorld
+    artifact_id: "{{ app_name }}"
     extension: war  
     repository_url: 'http://54.175.92.214:8081/nexus/content/repositories/snapshots/'
     username: admin
     password: admin123
-    version: 0.1-SNAPSHOT
-    dest: /tmp/helloworld.war
+    version: "{{ app_version }}"
+    dest: /tmp/{{ app_name }}.war
  
  - name: deploy to Tomcat 
    become: yes
    copy: 
-     src: /tmp/helloworld.war 
+     src: /tmp/{{ app_name }}.war 
      dest: "{{ tomcat_home }}/webapps"
      owner: tomcat
      group: tomcat 
