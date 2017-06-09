@@ -17,7 +17,12 @@
 
  - name: insert firewalld rule for tomcat http port
    become: yes
-   firewalld: port={{ http_port }}/tcp permanent=true state=enabled immediate=yes
+   firewalld: port=81/tcp permanent=true state=enabled immediate=yes
+   when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
+
+ - name: insert firewalld rule for tomcat http port
+   become: yes
+   firewalld: port=49009/tcp permanent=true state=enabled immediate=yes
    when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
 
  - name: Start haproxy
