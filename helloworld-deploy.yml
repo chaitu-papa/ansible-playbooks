@@ -1,5 +1,18 @@
 --- 
  - hosts: helloworld 
    user: ec2-user 
+
+   pre_tasks:
+   - name: stop haproxy
+     become: yes
+     service: name=haproxy state=stopped
+     delegate_to: 52.23.199.120
+
    roles:
        - tomcat-deploy  
+
+   post_tasks:
+   - name: start haproxy
+     become: yes
+     service: name=haproxy state=started
+     delegate_to: 52.23.199.120
