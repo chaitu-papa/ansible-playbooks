@@ -1,2 +1,21 @@
 ---
-# tasks file for aws
+ - name: Launch instance
+   ec2: image='ami-b63769a1'
+        instance_type='m3.medium'
+        keypair='FARM-174-dce49fa0.us-east-1'
+        instance_tags='{"Environment":"myapp","Class":"myapp-immutable","Name":"myapp (immutable)"}'
+        region='us-east-1'
+        aws_zone='us-east-1b'
+        group_id='sg-a84c66d6'
+        wait=true
+   register: ec2_info
+
+ - add_host: hostname={{ item.public_ip }} grounpname="myapp,ec2hosts"
+   with_items: ec2_info.instances
+ - name: Wait for instances to listen on port 22
+   wait_for:
+       state=started
+       host={{ item.public_dns_name }}
+       port=22
+   with_items: ec2_info.instances
+       
