@@ -68,7 +68,7 @@ define service{
 }
 define command{
         command_name    check_http_url_{{ item }}
-        command_line    /usr/lib64/nagios/plugins/check_http -H {{ item }} -p {{ http_port }} -u /helloworld
+        command_line    /usr/lib64/nagios/plugins/check_http -H {{ item }} -p {{ http_port }} -u /{{ app_name }}
       }
 
 

@@ -1,4 +1,4 @@
 ---
 # vars file for tomcat
 http_port: 49003
-
+app_name: HelloWorld
