@@ -1,0 +1,9 @@
+--- 
+ - hosts: tag_Environment_HelloWorld_DEV
+   gather_facts: True
+   user: ec2-user
+   roles:
+      - server-hardening
+      - tomcat-setup
+      - tomcat-deploy
+

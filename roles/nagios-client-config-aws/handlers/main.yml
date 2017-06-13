@@ -1,0 +1,9 @@
+---
+# handlers file for nagios
+- name: restart httpd
+  become: yes
+  service: name=httpd state=restarted
+
+- name: restart nagios
+  become: yes
+  service: name=nagios state=restarted

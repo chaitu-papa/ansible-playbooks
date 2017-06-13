@@ -1,0 +1,74 @@
+
+# {{ ansible_managed }}
+
+###############################################################################
+###############################################################################
+#
+# HOST GROUP DEFINITION
+#
+###############################################################################
+###############################################################################
+
+# Define an optional hostgroup for Linux machines
+define hostgroup{
+        hostgroup_name  {{ item.public_ip_address }}_hello ; The name of the hostgroup
+        alias           Tomcat Servers ; Long name of the group
+	members         {{ item.public_ip_address }} ;
+        }
+
+###############################################################################
+###############################################################################
+#
+# HOST DEFINITION
+#
+###############################################################################
+###############################################################################
+
+# Defin t for the local machine
+define host{
+        use                     linux-server            ; Name of host template to use
+        host_name               {{ item.public_ip_address }}
+        alias                   {{ item.public_ip_address }} 
+        address                 {{ item.public_ip_address }} 
+        }
+#{% for host in groups.helloworld %}
+#{% endfor %}
+
+
+###############################################################################
+###############################################################################
+#
+# SERVICE DEFINITIONS
+#
+###############################################################################
+###############################################################################
+
+
+# Define a service to "ping" the local machine
+
+define service{
+        use                             local-service         ; Name of service template to use
+        host_name                       {{ item.public_ip_address }}
+        service_description             PING
+        check_command			check_ping!100.0,20%!500.0,60%
+        }
+###
+# Monitoring Individual URLs...
+#
+###
+define service{
+        host_name                       {{ item.public_ip_address }}
+        service_description             HTTP http://HOSTADDRESS:PORT/HelloWorld
+        check_command                   check_http_url_{{ item.public_ip_address }}
+        max_check_attempts              5
+        check_interval                  0.50
+        retry_interval                  0.50
+        notifications_enabled           1
+        check_period                    24x7
+}
+define command{
+        command_name    check_http_url_{{ item.public_ip_address }}
+        command_line    /usr/lib64/nagios/plugins/check_http -H {{ item.public_ip_address }} -p {{ http_port }} -u /{{ app_name }}
+      }
+
+

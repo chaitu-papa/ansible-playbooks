@@ -1,0 +1,15 @@
+---
+# This will install nagios
+- ec2_remote_facts:
+    region: 'us-east-1'
+    filters:
+      instance-state-name: running
+      "tag:Environment": HelloWorld_DEV
+  register: ec2_facts
+
+- name: create the nagios object files
+  become: yes
+  template: src=helloworld.cfg.j2
+            dest=/etc/nagios/ansible-managed/{{ item.public_ip_address + ".cfg" }}
+  with_items: "{{ ec2_facts.instances }}"
+  notify: restart nagios
