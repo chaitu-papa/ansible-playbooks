@@ -1,2 +1,3 @@
 ---
 # vars file for aws
+app_name: HelloWorld

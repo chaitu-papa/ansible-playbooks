@@ -4,4 +4,8 @@
    gather_facts: false
    user: ec2-user 
    roles:
-      - aws
+        aws
+        aws
+   
+ - hosts: tag_Environment_HelloWorld_DEV
+   roles:
