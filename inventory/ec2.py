@@ -17,7 +17,7 @@ optional region environement variable if region is 'auto'
 This script also assumes there is an ec2.ini file alongside it.  To specify a
 different path to ec2.ini, define the EC2_INI_PATH environment variable:
 
-    export EC2_INI_PATH=inventory/aws_ec2.ini
+    export EC2_INI_PATH=inventory/ec2.ini
 
 If you're using eucalyptus you need to set the above variables and
 you need to define:
