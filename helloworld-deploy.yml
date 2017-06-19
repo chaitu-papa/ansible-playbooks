@@ -6,7 +6,7 @@
    - name: stop haproxy
      become: yes
      service: name=haproxy state=stopped
-     delegate_to: 54.173.41.216
+     delegate_to: 54.165.162.129
 
    roles:
        - tomcat-deploy  
@@ -15,4 +15,4 @@
    - name: start haproxy
      become: yes
      service: name=haproxy state=started
-     delegate_to: 54.173.41.216
+     delegate_to: 54.165.162.129
