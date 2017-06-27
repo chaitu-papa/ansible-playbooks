@@ -4,4 +4,4 @@
    gather_facts: false
    user: ec2-user 
    roles:
-       - aws
+       - aws-build
