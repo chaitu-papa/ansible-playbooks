@@ -13,7 +13,7 @@
    ec2: image='ami-b63769a1'
         instance_type='t2.micro'
         keypair='DevOpsCOE-KeyPair'
-        instance_tags='{"Environment":"{{ app_name }}_DEV","Class":"{{ app_name }}-mutable","Name":"{{ app_name }} (mutable)"}'
+        instance_tags='{"Environment":"{{ artifact_type }}","Name":"{{ app_name }}"}'
         region='us-east-1'
         aws_zone='us-east-1c'
         group_id='sg-9157bbe0'
