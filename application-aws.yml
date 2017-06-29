@@ -13,3 +13,4 @@
    user: ec2-user
    roles:
       - aws-create-ami
+      - aws-terminate-instance

@@ -1,0 +1,9 @@
+---
+# tasks file for aws-terminate-instance
+- name: Terminate instance(s)
+  ec2:
+    instance_ids: "{{ ec2_id }}"
+    region: "{{ region }}"
+    state: absent
+    wait: yes
+
