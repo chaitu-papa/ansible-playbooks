@@ -15,6 +15,7 @@
      - libselinux-python
      - libsemanage-python
      - firewalld
+     - python-pip
    when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
 # - name: update packages 
@@ -41,3 +42,9 @@
  - name: Start firewalld
    become: yes
    service: name=firewalld state=started enabled=yes
+
+ - name: pip module 
+   become: yes
+   pip: name={{ item }}
+   with_items:
+    - boto

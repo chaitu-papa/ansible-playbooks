@@ -1,9 +1,15 @@
 --- 
- - hosts: tag_Environment_HelloWorld_DEV
+ - hosts: tag_Environment_SNAPSHOT
+   connection: local
    gather_facts: True
    user: ec2-user
    roles:
       - server-hardening
       - tomcat-setup
       - tomcat-deploy
-
+ - hosts: tag_Environment_SNAPSHOT
+   connection: local
+   gather_facts: no
+   user: ec2-user
+   roles:
+      - aws-create-ami
