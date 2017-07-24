@@ -1,0 +1,5 @@
+--- 
+ - hosts: haproxy-server 
+   user: ec2-user 
+   roles:
+      - haproxy-server

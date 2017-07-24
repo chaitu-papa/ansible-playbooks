@@ -1,0 +1,5 @@
+--- 
+ - hosts: nagios-server-monitoring
+   user: ec2-user 
+   roles:
+     - nagios-client-config 

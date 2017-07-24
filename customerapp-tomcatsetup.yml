@@ -1,0 +1,5 @@
+--- 
+ - hosts: helloworld 
+   user: ec2-user 
+   roles:
+      - tomcat-setup  
