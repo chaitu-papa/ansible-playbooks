@@ -30,7 +30,7 @@
   become: yes
   lineinfile: >
     regexp="^allowed_hosts"
-    line="allowed_hosts=127.0.0.1, 54.175.92.214"
+    line="allowed_hosts=127.0.0.1, 34.207.130.0"
     dest="/etc/nagios/nrpe.cfg"
   notify:
          - restart nrpe
