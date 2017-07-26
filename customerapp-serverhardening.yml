@@ -1,7 +1,7 @@
---- 
-   - hosts: tag_Environment_{{ env_name }}
+---
+ - hosts: tag_Environment_{{ env_name }}
    connection: local
    gather_facts: True
    user: ec2-user
    roles:
-      - server-hardening  
+      - server-hardening
