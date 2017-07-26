@@ -1,5 +1,5 @@
 --- 
- - hosts: tag_Environment_{{ env_nam }}
+   - hosts: tag_Environment_{{ env_name }}
    connection: local
    gather_facts: True
    user: ec2-user
