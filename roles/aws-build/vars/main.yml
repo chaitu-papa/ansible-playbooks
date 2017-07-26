@@ -1,4 +1,4 @@
 ---
 # vars file for aws
-app_name: HelloWorld
+app_name: customerApp
 artifact_type: SNAPSHOT
