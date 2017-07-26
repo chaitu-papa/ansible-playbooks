@@ -1,5 +1,7 @@
 --- 
- - hosts: helloworld 
-   user: ec2-user 
+ - hosts: tag_Environment_{{ env_nam }}
+   connection: local
+   gather_facts: True
+   user: ec2-user
    roles:
       - server-hardening  
