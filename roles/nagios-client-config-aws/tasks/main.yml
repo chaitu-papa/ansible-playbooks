@@ -4,7 +4,7 @@
     region: 'us-east-1'
     filters:
       instance-state-name: running
-      "tag:Environment": HelloWorld_DEV
+      "tag:Environment": "{{ env_name }}"
   register: ec2_facts
 
 - name: create the nagios object files
