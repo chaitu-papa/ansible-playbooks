@@ -11,7 +11,7 @@
 
  - name: Launch instance
    ec2: image={{ ami_id }}
-        instance_type= {{ instance_type }}
+        instance_type={{ instance_type }}
         keypair='DevOpsCOE-KeyPair'
         instance_tags='{"Environment":"{{ env_name }}","Name":"{{ app_name }}"}'
         region='us-east-1'
@@ -19,7 +19,7 @@
         group_id={{ sg_group_id }}
         wait=true
         assign_public_ip=yes
-        vpc_subnet_id= {{ vpc_subnet_id }}
+        vpc_subnet_id={{ vpc_subnet_id }}
    register: ec2_info
 
  - add_host: hostname="{{ item.public_ip }}" grounpname="{{ app_name }},ec2hosts"
