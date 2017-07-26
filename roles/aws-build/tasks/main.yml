@@ -3,23 +3,23 @@
    action: ec2_facts
    register: ec2_facts
   
- - name: Rename
-   action: ec2_tag resource={{ ec2_facts.ansible_facts.ansible_ec2_instance_id }} region='us-east-1' state=present
-   args:
-     tags:
-       "OLD_{{ app_name }}": true
+# - name: Rename
+ #  action: ec2_tag resource={{ ec2_facts.ansible_facts.ansible_ec2_instance_id }} region='us-east-1' state=present
+  # args:
+   #  tags:
+    #   "OLD_{{ app_name }}": true
 
  - name: Launch instance
-   ec2: image='ami-b63769a1'
-        instance_type='t2.micro'
+   ec2: image={{ ami_id }}
+        instance_type= {{ instance_type }}
         keypair='DevOpsCOE-KeyPair'
-        instance_tags='{"Environment":"{{ artifact_type }}","Name":"{{ app_name }}"}'
+        instance_tags='{"Environment":"{{ env_name }}","Name":"{{ app_name }}"}'
         region='us-east-1'
         aws_zone='us-east-1c'
-        group_id='sg-9157bbe0'
+        group_id={{ sg-group_id }}
         wait=true
         assign_public_ip=yes
-        vpc_subnet_id='subnet-f02683aa'
+        vpc_subnet_id= {{ vpc_subnet_id }}
    register: ec2_info
 
  - add_host: hostname="{{ item.public_ip }}" grounpname="{{ app_name }},ec2hosts"
