@@ -1,5 +1,6 @@
---- 
- - hosts: helloworld 
-   user: ec2-user 
+ - hosts: tag_Environment_{{ env_name }}
+   connection: local
+   gather_facts: True
+   user: ec2-user
    roles:
       - tomcat-setup  
