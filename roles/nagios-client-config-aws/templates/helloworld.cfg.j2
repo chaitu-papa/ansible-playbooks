@@ -58,7 +58,7 @@ define service{
 ###
 define service{
         host_name                       {{ item.public_ip_address }}
-        service_description             HTTP http://HOSTADDRESS:PORT/HelloWorld
+        service_description             HTTP http://{{ item.public_ip_address }}:{{ http_port }}/{{ app_name }}
         check_command                   check_http_url_{{ item.public_ip_address }}
         max_check_attempts              5
         check_interval                  0.50
