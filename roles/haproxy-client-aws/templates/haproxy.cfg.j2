@@ -76,7 +76,10 @@ backend app
     {% endfor %}
    {% for item in ec2_facts.instances %}
     server {{ item.public_ip_address }} {{ item.public_ip_address }}:{{ http_port }} cookie JSESSIONID_SERVER_1 check inter 5000
-    {% endfor %}
+   {% endfor %}
+   {% for item in ec2.instances %}
+    server {{ item.public_ip_address }} {{ item.public_ip_address }}:{{ http_port }} cookie JSESSIONID_SERVER_1 check inter 5000
+   {% endfor %}
 
 listen  stats   :49009
         mode            http
