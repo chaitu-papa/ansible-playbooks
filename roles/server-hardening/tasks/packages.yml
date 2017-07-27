@@ -1,6 +1,4 @@
 --- 
- - debug:
-    msg: "System {{ inventory_hostname }} has OS {{ ansible_distribution }}"
  - name: standard install additional packages 
    become: yes
    yum: pkg={{ item }} 
@@ -16,14 +14,7 @@
      - libsemanage-python
      - firewalld
      - python-pip
-   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
-# - name: update packages 
-#   become: yes
-#   yum: 
-#        name='*'
-#        state=latest 
-#        update_cache=yes
  - name: remove additional packages 
    become: yes
    yum: pkg={{ item }} 
@@ -31,7 +22,6 @@
         update_cache=yes
    with_items: 
      - java-1.7.0-openjdk
-   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
  - name: setenforce permisive
    become: yes

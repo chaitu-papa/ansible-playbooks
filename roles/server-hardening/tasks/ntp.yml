@@ -1,6 +1,4 @@
 --- 
- - debug:
-    msg: "System {{ inventory_hostname }} has OS {{ ansible_distribution }}"
  - name: ntp additional packages 
    become: yes
    yum: pkg={{ item }} 
@@ -8,7 +6,6 @@
         update_cache=yes
    with_items: 
      - ntp
-   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
    notify: 
          - restart ntpd
 

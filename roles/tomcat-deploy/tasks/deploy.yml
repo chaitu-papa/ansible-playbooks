@@ -11,7 +11,7 @@
 
  - name: Download helloworld 
    become: yes
-   become_user: tomcat
+#   become_user: tomcat
    maven_artifact:
     group_id: com.cts
     artifact_id: "{{ app_name }}"

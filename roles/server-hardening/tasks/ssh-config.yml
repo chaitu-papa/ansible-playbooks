@@ -1,6 +1,4 @@
 --- 
- - debug:
-    msg: "System {{ inventory_hostname }} has OS {{ ansible_distribution }}"
  - name: Disable root login
    become: yes
    lineinfile: 
@@ -8,7 +6,6 @@
     regexp: "^PermitRootLogin"
     line: "PermitRootLogin no"
     state: present
-   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
    notify: restart sshd
 
  - name: Disable password authentication
@@ -18,5 +15,4 @@
     regexp: "^#?PasswordAuthentication"
     line: "PasswordAuthentication no"
     state: present
-   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
    notify: restart sshd
