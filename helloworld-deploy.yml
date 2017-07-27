@@ -6,7 +6,7 @@
    - name: stop haproxy
      become: yes
      service: name=haproxy state=stopped
-     delegate_to: "{{ haproxy-server }}"
+     delegate_to: "{{ haproxy_server }}"
 
    roles:
        - tomcat-deploy  
@@ -15,4 +15,4 @@
    - name: start haproxy
      become: yes
      service: name=haproxy state=started
-     delegate_to: "{{ haproxy-server }}"
+     delegate_to: "{{ haproxy_server }}"
