@@ -1,7 +1,6 @@
 [helloworld]
 34.207.130.0
 34.226.206.37
-54.164.226.136
 [haproxy-server]
 34.226.206.37
 [nagios-server-monitoring]
