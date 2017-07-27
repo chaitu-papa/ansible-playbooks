@@ -1,15 +1,10 @@
 ---
- - ec2_remote_facts:
-   aws_access_key: "{{ AWS_ACCESS_KEY_ID }}"
-   aws_secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
-   region: 'us-east-1'
-   filters:
-      instance-state-name: running
-      tag:Environment: ENVPRO
+# This will install nagios
+- ec2_facts:
   register: ec2_facts
- 
- - name: Rename
-   action: ec2_tag resource={{ ec2_facts.ansible_facts.ansible_ec2_instance_id }} region='us-east-1' state=present
-   args:
+- name: Rename
+  action: ec2_tag resource={{ ec2_facts.ansible_facts.ansible_ec2_instance_id }} region='us-east-1' state=present
+  args:
      tags:
-       "Environment": {{ env_name }}
+       "Environment": "{{ env_name }}"
+
