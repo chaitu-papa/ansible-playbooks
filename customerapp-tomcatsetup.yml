@@ -1,6 +1,6 @@
  - hosts: tag_Environment_{{ env_name }}
    connection: local
-   gather_facts: False
+   gather_facts: no
    user: ec2-user
    roles:
       - tomcat-setup  
