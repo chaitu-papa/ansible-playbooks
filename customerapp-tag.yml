@@ -1,4 +1,4 @@
- - hosts: tag_Environment_ENVPRO
+ - hosts: localhost
    connection: local
    gather_facts: True
    user: ec2-user
