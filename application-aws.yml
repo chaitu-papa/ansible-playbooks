@@ -1,9 +1,12 @@
 --- 
  - hosts: tag_Environment_ENVPRO
-   connection: local
-   gather_facts: no
    user: ec2-user
    roles:
       - server-hardening
       - tomcat-setup
       - tomcat-deploy
+ - hosts: tag_Environment_ENVPRO
+   user: ec2-user
+   roles:
+      - aws-create-ami
+      - aws-terminate-instance
