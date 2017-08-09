@@ -1,0 +1,14 @@
+---
+# This will execute cloud formation template
+- name: launch ansible cloudformation example
+  cloudformation:
+    stack_name: "ansible-cloudformation"
+    state: "present"
+    region: "us-east-1"
+    disable_rollback: true
+    template: "roles/aws-cf/templates/cf.json"
+    template_parameters:
+      BaseImageId: "ami-0b416970"
+    tags:
+      Stack: "ansible-cloudformation"
+
