@@ -1,14 +1,36 @@
 ---
 # This will execute cloud formation template
+- ec2_ami_find:
+    aws_access_key: "{{ AWS_ACCESS_KEY_ID }}"
+    aws_secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
+    name: "{{ app_name }}-{{ bld_num }}"
+    owner: "540714612399"
+    region: us-east-1
+    sort: name
+    sort_order: descending
+    sort_end: 1
+  register: ami_find
+
+- debug : 
+     msg: "{{ ami_find.results[0].ami_id }}"
+
+- name: delete stack task
+  cloudformation:
+      stack_name: "XxXCustomerApp"
+      state: "absent"
+      region: "us-east-1"
+  ignore_errors: yes
+
 - name: launch ansible cloudformation example
   cloudformation:
-    stack_name: "ansible-cloudformation"
+    stack_name: "XxXCustomerApp"
     state: "present"
     region: "us-east-1"
-    disable_rollback: true
+    disable_rollback: false
     template: "roles/aws-cf/templates/cf.json"
     template_parameters:
-      BaseImageId: "ami-0b416970"
+      BaseImageId: "{{ ami_find.results[0].ami_id }}"
+      InstanceType: "{{ InstanceType }}"
     tags:
-      Stack: "ansible-cloudformation"
+      Stack: "XxXCustomerApp"
 
