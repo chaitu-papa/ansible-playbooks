@@ -37,4 +37,5 @@
       InstanceSubnets: "{{ 	cf_subnet }}"
     tags:
       Stack: "{{ app_name }}-immutable-{{ env_name }}"
+      Name: "{{ app_name }}-{{ env_name }}"
 
