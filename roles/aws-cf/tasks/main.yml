@@ -39,3 +39,5 @@
       Stack: "{{ app_name }}-immutable-{{ env_name }}"
       Name: "{{ app_name }}-{{ env_name }}"
 
+- pause:
+    minutes: 5
