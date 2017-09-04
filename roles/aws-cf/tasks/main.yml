@@ -16,14 +16,14 @@
 
 - name: delete stack task
   cloudformation:
-      stack_name: "{{ app_name }}-immutable"
+      stack_name: "{{ env_name }}-{{ app_name }}-immutable"
       state: "absent"
       region: "us-east-1"
   ignore_errors: yes
 
 - name: launch ansible cloudformation example
   cloudformation:
-    stack_name: "{{ app_name }}-immutable"
+    stack_name: "{{ env_name }}-{{ app_name }}-immutable"
     state: "present"
     region: "us-east-1"
     disable_rollback: true
