@@ -40,4 +40,4 @@
       Name: "{{ app_name }}-{{ env_name }}"
 
 - pause:
-    minutes: 5
+    minutes: 2
