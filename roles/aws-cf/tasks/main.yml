@@ -31,10 +31,10 @@
     template_parameters:
       BaseImageId: "{{ ami_find.results[0].ami_id }}"
       InstanceType: "{{ InstanceType }}"
-      InstanceSecurityGroup: "{{ sg_group }}"
+      InstanceSecurityGroup: "{{ cf_sg_group }}"
       MinInstances: "{{ min_instances }}"
       MaxInstances: "{{ max_instances }}"
-      
+      InstanceSubnets: "{{ 	cf_subnet }}"
     tags:
       Stack: "{{ app_name }}-immutable-{{ env_name }}"
 
