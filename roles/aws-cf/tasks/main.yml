@@ -3,7 +3,7 @@
 - ec2_ami_find:
     aws_access_key: "{{ AWS_ACCESS_KEY_ID }}"
     aws_secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
-    name: "{{ app_name }}-*"
+    name: "{{ app_name }}*"
     owner: "540714612399"
     region: us-east-1
     sort: name
@@ -16,14 +16,14 @@
 
 - name: delete stack task
   cloudformation:
-      stack_name: "XxXCustomerApp"
+      stack_name: "{{ app_name}}-immutable"
       state: "absent"
       region: "us-east-1"
   ignore_errors: yes
 
 - name: launch ansible cloudformation example
   cloudformation:
-    stack_name: "XxXCustomerApp"
+    stack_name: "{{ app_name}}-immutable"
     state: "present"
     region: "us-east-1"
     disable_rollback: false
@@ -36,5 +36,5 @@
       MaxInstances: "{{ max_instances }}"
       
     tags:
-      Stack: "XxXCustomerApp"
+      Stack: "{{ app_name }}-immutable-{{ env_name }}"
 
