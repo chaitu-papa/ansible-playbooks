@@ -26,7 +26,7 @@
     stack_name: "{{ app_name}}-immutable"
     state: "present"
     region: "us-east-1"
-    disable_rollback: false
+    disable_rollback: true
     template: "roles/aws-cf/templates/cf.json"
     template_parameters:
       BaseImageId: "{{ ami_find.results[0].ami_id }}"
