@@ -31,6 +31,10 @@
     template_parameters:
       BaseImageId: "{{ ami_find.results[0].ami_id }}"
       InstanceType: "{{ InstanceType }}"
+      InstanceSecurityGroup: "{{ sg_group }}"
+      MinInstances: "{{ min_instances }}"
+      MaxInstances: "{{ max_instances }}"
+      
     tags:
       Stack: "XxXCustomerApp"
 
