@@ -42,7 +42,7 @@
       register: stack 
 
 - debug: 
-     msg: "{{ stack.stack_outputs }}" 
+     msg: "{{ stack_outputs }}" 
 
 - pause:
     minutes: 2
