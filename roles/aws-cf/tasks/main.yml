@@ -39,5 +39,9 @@
       Stack: "{{ app_name }}-immutable-{{ env_name }}"
       Name: "{{ app_name }}-{{ env_name }}"
       Environment: "{{ app_name }}-{{ env_name }}"
+      register: stack 
+- name: show stack outputs 
+    debug: msg="My stack outputs are {{stack.stack_outputs}}" 
+
 - pause:
     minutes: 2
