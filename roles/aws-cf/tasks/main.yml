@@ -34,7 +34,7 @@
       InstanceSecurityGroup: "{{ cf_sg_group }}"
       MinInstances: "{{ min_instances }}"
       MaxInstances: "{{ max_instances }}"
-      InstanceSubnets: "{{ 	cf_subnet }}"
+      InstanceSubnets: "{{ cf_subnet }}"
       ELBR53HostedZone: "{{ HostedZone }}"
       ELBR53DNSName: "{{ env_name }}-{{ app_name }}"   
     tags:

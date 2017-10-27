@@ -24,7 +24,7 @@
     "BaseImageId" : {
       "Description" : "Base image to be used to spin up ec2 instances",
       "Type" : "String",
-      "Default" : "ami-70ecee66",
+      "Default" : "ami-7ee44204",
       "ConstraintDescription" : "must be the name of an existing AMI ID."
     },
     
@@ -52,7 +52,19 @@
       "Default" : "subnet-82fc95ca,subnet-35f84b19,subnet-35f84b19",
       "Type" : "List<AWS::EC2::Subnet::Id>"
     },
-    
+     "ELBR53DNSName" : {
+      "Description" : "DNS name for the ELB to be added in Route53. The final end endpoint for the ELB will be <ELBDNSName>.<AWS-Region>.<Environment>.<ELBHostedZone> .",
+      "Type" : "String",
+      "Default" : "customerApp"
+    },
+    "ELBR53HostedZone" : {
+      "Type" : "String",
+      "Description" : "The DNS name of an existing Amazon Route 53 hosted zone. DNS record for the LoadBalancer will be added in this zone.",
+      "AllowedPattern" : "(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)",
+      "ConstraintDescription" : "Must be a valid DNS zone name.",
+      "Default" : "devops.cts.com"
+    },
+	
     "SSHLocation" : {      
       "Description" : "The IP address range that can be used to SSH to the EC2 instances",
       "Type": "String",
@@ -63,6 +75,7 @@
       "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
     }
     
+	
   },
 
   "Resources" : {
@@ -75,7 +88,7 @@
         "MinSize" : { "Ref" : "MinInstances"},
         "MaxSize" : { "Ref" : "MaxInstances"},
         "VPCZoneIdentifier" : { "Ref" : "InstanceSubnets" },
-        "LoadBalancerNames" : [ { "Ref" : "ElasticLoadBalancer" } ],
+        "LoadBalancerNames" : [ { "Ref" : "ElasticLoadBalancer" } ]
         
       },
        "UpdatePolicy": {
@@ -97,7 +110,7 @@
         "SecurityGroups" : [ { "Ref" : "InstanceSecurityGroup" } ],
         "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
                "#!/bin/bash -x\n",
-               "sudo /etc/init.d/tomcat start\n", ]   ]      }
+               "sudo /etc/init.d/tomcat start\n" ]   ]      }
         },
         "InstanceType" : { "Ref" : "InstanceType" }       
     }
@@ -186,13 +199,43 @@
       }
     },
 
-   },
+	 
+ 
+      "Route53" : {
+        "Type" : "AWS::Route53::RecordSetGroup",
+        "Properties" : {
+          "HostedZoneName" : { "Fn::Join" : [ "", [ { "Ref" : "ELBR53HostedZone" }, "." ] ] },
+          "Comment" : "Zone alias targeted to ElasticLoadBalancer.",
+          "RecordSets" : [
+            {
+              "Name" : { "Fn::Join" : [ "", [ { "Ref" : "ELBR53DNSName" }, ".", {"Ref" : "ELBR53HostedZone"}, "."]]},
+              "Type" : "A",
+              "AliasTarget" : {
+                  "HostedZoneId" : { "Fn::GetAtt" : ["ElasticLoadBalancer", "CanonicalHostedZoneNameID"] },
+                  "DNSName" : { "Fn::GetAtt" : ["ElasticLoadBalancer","DNSName"] }
+              }
+            }
+          ]
+        }
+    }
+
+
+ },
+	
+
 
   "Outputs" : {
-    "URL" : {
-      "Description" : "The URL of the website",
+    "Route53URL" : {
+      "Description" : "Route 53 URL of the website.",
+      "Value" :  { "Fn::Join" : [ "", [ "http://", { "Ref" : "ELBR53DNSName" }, ".", {"Ref" : "ELBR53HostedZone"}, "."]]}
+    },
+	"ELBURL" : {
+      "Description" : "Elastic LoadBalancer url",
       "Value" :  { "Fn::Join" : [ "", [ "http://", { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]}]]}
     }
   }
+ 
 }
+
+
 
