@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  user: ec2-user
+  roles:
+       - aws-build
+- hosts: tag_Environment_{{ env_name }}
+  connection: local
+  gather_facts: yes
+  user: ec2-user
+  roles:
+      - tomcat-deploy
+      - aws-create-ami
+      - aws-terminate-instance
+
