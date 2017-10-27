@@ -7,5 +7,5 @@
     state: absent
     wait: yes
 - pause:
-    minutes: 2
+    minutes: 1
 

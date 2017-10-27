@@ -35,7 +35,7 @@
       MinInstances: "{{ min_instances }}"
       MaxInstances: "{{ max_instances }}"
       InstanceSubnets: "{{ cf_subnet }}"
-      ELBR53HostedZone: "{{ HostedZone }}"
+      ELBR53HostedZone: "{{ hosted_zone }}"
       ELBR53DNSName: "{{ env_name }}-{{ app_name }}"   
     tags:
       Stack: "{{ app_name }}-immutable-{{ env_name }}"
@@ -44,4 +44,4 @@
       register: stack 
 
 - pause:
-    minutes: 2
+    minutes: 1
