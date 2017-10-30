@@ -42,7 +42,8 @@
       Name: "{{ app_name }}-{{ env_name }}"
       Environment: "{{ app_name }}-{{ env_name }}"
       register: stack 
-- debug :  
+- debug :
      msg: "{{ stack['stack_outputs']['URL'] }}"
+
 - pause:
     minutes: 1
