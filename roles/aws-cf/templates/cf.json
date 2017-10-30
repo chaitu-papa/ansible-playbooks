@@ -197,45 +197,26 @@
           "Timeout" : "5"
         }
       }
-    },
-
-	 
- 
-      "Route53" : {
-        "Type" : "AWS::Route53::RecordSetGroup",
-        "Properties" : {
-          "HostedZoneName" : { "Fn::Join" : [ "", [ { "Ref" : "ELBR53HostedZone" }, "." ] ] },
-          "Comment" : "Zone alias targeted to ElasticLoadBalancer.",
-          "RecordSets" : [
-            {
-              "Name" : { "Fn::Join" : [ "", [ { "Ref" : "ELBR53DNSName" }, ".", {"Ref" : "ELBR53HostedZone"}, "."]]},
-              "Type" : "A",
-              "AliasTarget" : {
-                  "HostedZoneId" : { "Fn::GetAtt" : ["ElasticLoadBalancer", "CanonicalHostedZoneNameID"] },
-                  "DNSName" : { "Fn::GetAtt" : ["ElasticLoadBalancer","DNSName"] }
-              }
-            }
-          ]
-        }
     }
-
 
  },
 	
 
 
   "Outputs" : {
-    "Route53URL" : {
-      "Description" : "Route 53 URL of the website.",
-      "Value" :  { "Fn::Join" : [ "", [ "http://", { "Ref" : "ELBR53DNSName" }, ".", {"Ref" : "ELBR53HostedZone"}, "."]]}
+    "ELBHTTPURL" : {
+      "Description" : "Elastic LoadBalancer url",
+      "Value" :  { "Fn::Join" : [ "", [ "http://", { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]}]]}
     },
 	"ELBURL" : {
       "Description" : "Elastic LoadBalancer url",
-      "Value" :  { "Fn::Join" : [ "", [ "http://", { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]}]]}
+      "Value" :  { "Fn::Join" : [ "", [ "", { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]}]]}
     }
   }
  
 }
+
+
 
 
 
