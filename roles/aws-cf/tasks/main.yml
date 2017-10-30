@@ -59,3 +59,4 @@
       alias: True
       alias_hosted_zone_id: Z3LTYX1U4J8VM2
       overwrite: yes
+      private_zone: yes
