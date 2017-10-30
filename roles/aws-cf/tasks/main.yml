@@ -41,7 +41,8 @@
       Stack: "{{ app_name }}-immutable-{{ env_name }}"
       Name: "{{ app_name }}-{{ env_name }}"
       Environment: "{{ app_name }}-{{ env_name }}"
-    register: stack 
+  register: stack 
+
 - debug :
      msg: "{{ stack['stack_outputs']['ELBURL'] }}"
 
