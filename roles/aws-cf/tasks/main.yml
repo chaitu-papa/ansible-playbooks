@@ -48,3 +48,13 @@
 
 - pause:
     minutes: 1
+
+- route53:
+      state: present
+      zone: "{{ hosted_zone }}"
+      record: "{{ dns_name }}-{{ app_name }}.{{ hosted_zone }}"
+      type: A
+      value: "{{ stack['stack_outputs']['ELBURL'] }}"
+      alias: True
+      alias_hosted_zone_id: Z3LTYX1U4J8VM2
+      overwrite: yes
