@@ -51,7 +51,7 @@
 
 - name: Route 53 
   route53:
-      state: present
+      command: create
       zone: "{{ hosted_zone }}"
       record: "{{ dns_name }}-{{ app_name }}.{{ hosted_zone }}"
       type: A
