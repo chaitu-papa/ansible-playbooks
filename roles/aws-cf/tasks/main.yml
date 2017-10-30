@@ -43,7 +43,7 @@
       Environment: "{{ app_name }}-{{ env_name }}"
     register: stack 
 - debug :
-     msg: "{{ stack['stack_outputs']['URL'] }}"
+     msg: "{{ stack['stack_outputs']['ELBURL'] }}"
 
 - pause:
     minutes: 1
