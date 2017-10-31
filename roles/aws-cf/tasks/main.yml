@@ -44,7 +44,7 @@
   register: stack 
 
 - debug :
-     msg: "{{ stack['stack_outputs']['ELBURL'] }}"
+     msg: "{{ stack['stack_outputs']['ELBHTTPURL'] }}"
 
 - pause:
     minutes: 1
